@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Meses Contigo 💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS PARA EL CONTROL DE MÚSICA */
+        .control-musica {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(255, 46, 99, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ff2e63;
+            transition: all 0.3s ease;
+        }
+        
+        .control-musica:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 46, 99, 0.4);
+        }
+        
+        .btn-musica {
+            background: linear-gradient(135deg, #ff2e63, #ff6b8b);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .btn-musica:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.5);
+        }
+        
+        .volumen-control {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: aparecer 0.5s ease;
+        }
+        
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        #controlVolumen {
+            width: 100px;
+            height: 6px;
+            -webkit-appearance: none;
+            background: linear-gradient(to right, #ff2e63, #ff8fab);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        #controlVolumen::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #ff2e63;
+            cursor: pointer;
+        }
+        
+        .icono-musica {
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .control-musica {
+                bottom: 10px;
+                right: 10px;
+                padding: 10px 15px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .btn-musica {
+                min-width: 150px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .volumen-control {
+                width: 100%;
+            }
+            
+            #controlVolumen {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CORAZONES FLOTANTES -->
+    <div id="corazones"></div>
+
+    <!-- PORTADA -->
+    <section class="portada" id="portada">
+        <div class="container">
+            <h1 class="titulo-principal">4 Meses Contigo 💕</h1>
+            <p class="subtitulo">120 días descubriendo que el amor sí existe, y tiene tu nombre</p>
+            
+            <div class="contador">
+                <div class="numero-dias">120</div>
+                <div>días de felicidad</div>
+            </div>
+            
+            <button class="btn-descubrir" id="btnDescubrir">
+                Descubre Nuestra Historia <i class="fas fa-heart"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- LINEA DE TIEMPO -->
+    <section class="seccion" id="lineaTiempo">
+        <div class="container">
+            <h2 class="titulo-seccion">Nuestra Evolución Mes a Mes</h2>
+            <div class="linea-tiempo">
+                <div class="mes">
+                    <div class="numero-mes">1</div>
+                    <h3 class="titulo-mes">La Chispa</h3>
+                    <p>Primeras citas, nervios hermosos, descubriendo que queríamos más.</p>
+                </div>
+                <div class="mes">
+                    <div class="numero-mes">2</div>
+                    <h3 class="titulo-mes">Creciendo Juntos</h3>
+                    <p>Primeros "te quiero", inside jokes, sentir que esto era real.</p>
+                </div>
+                <div class="mes">
+                    <div class="numero-mes">3</div>
+                    <h3 class="titulo-mes">Comodidad y Magia</h3>
+                    <p>Momentos cómodos, risas sin fin, saber que esto es especial.</p>
+                </div>
+                <div class="mes">
+                    <div class="numero-mes">4</div>
+                    <h3 class="titulo-mes">Soñando en Grande</h3>
+                    <p>Proyectos juntos, amor más profundo, futuro brillante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RAZONES POR LAS QUE TE AMO -->
+    <section class="seccion" id="razones">
+        <div class="container">
+            <h2 class="titulo-seccion">120 Razones (y contando) por las que te amo</h2>
+            <div class="razones-container" id="razonesLista">
+                <!-- Las razones se generan con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA INTERACTIVA -->
+    <section class="seccion" id="galeria">
+        <div class="container">
+            <h2 class="titulo-seccion">Nuestros Momentos</h2>
+            <div class="galeria">
+                <!-- REEMPLAZA ESTOS PLACEHOLDERS CON TUS FOTOS REALES -->
+                <div class="foto">
+                    <img src="https://i.ibb.co/0p75MsZV/1.jpg" alt="Nuestra primera cita">
+                    <div class="foto-overlay">
+                        Nuestra primera cita - El día que todo comenzó
+                    </div>
+                </div>
+                <div class="foto">
+                    <img src="https://i.ibb.co/JRSsf43d/3.jpg" alt="Nuestro primer mes">
+                    <div class="foto-overlay">
+                        Primer mes - Cuando supe que esto era especial
+                    </div>
+                </div>
+                <div class="foto">
+                    <img src="https://i.ibb.co/B7bsnHK/2.jpg" alt="Risas juntos">
+                    <div class="foto-overlay">
+                        Risa contagiosa - Tu risa es mi sonido favorito
+                    </div>
+                </div>
+                <div class="foto">
+                    <img src="https://i.ibb.co/w5SvBV4/IMG-20251210-WA0042-2.jpg" alt="Dias perfectos">
+                    <div class="foto-overlay">
+                        Dias perfectos - Conversaciones interminables
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-style: italic; color: #6d214f;">
+                Cada foto es un pedacito de nuestra historia 💖
+            </p>
+        </div>
+    </section>
+
+    <!-- TEST DIVERTIDO -->
+    <s<section class="seccion" id="test">
+    <div class="container">
+        <h2 class="titulo-seccion">¿Cuánto hemos aprendido en 4 meses?</h2>
+        <div class="test-container">
+            <div class="pregunta" id="pregunta">
+                <span style="color: #ff2e63;">✨ Pregunta especial ✨</span><br>
+                ¿Cuál ha sido nuestro "chiste privado" más memorable?
+            </div>
+            
+            <div class="opciones">
+                <!-- Opción 1 -->
+                <div class="opcion-con-anecdota" data-correct="true">
+                    <div class="opcion-texto">
+                        <span class="opcion-icon">🔐</span>
+                        Nuestro código secreto de risas
+                    </div>
+                    <div class="anecdota-caja">
+                        <div class="anecdota-icon">😄</div>
+                        <div class="anecdota-texto">
+                            <strong>La anécdota:</strong><br>
+                            Cuando nos quedamos mirando y nos reímos sin razón alguna
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opción 2 -->
+                <div class="opcion-con-anecdota">
+                    <div class="opcion-texto">
+                        <span class="opcion-icon">🤪</span>
+                        La tontería que nos causa gracia
+                    </div>
+                    <div class="anecdota-caja">
+                        <div class="anecdota-icon">😂</div>
+                        <div class="anecdota-texto">
+                            <strong>La anécdota:</strong><br>
+                            Esos chistes y bromas sin sentido que solo nosotros entendemos
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opción 3 -->
+                <div class="opcion-con-anecdota">
+                    <div class="opcion-texto">
+                        <span class="opcion-icon">💫</span>
+                        La cosa que solo nos pasa a nosotros
+                    </div>
+                    <div class="anecdota-caja">
+                        <div class="anecdota-icon">🤣</div>
+                        <div class="anecdota-texto">
+                            <strong>La anécdota:</strong><br>
+                            Aquella vez en el aula que te dio el ataque de risa
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Opción 4 -->
+                <div class="opcion-con-anecdota">
+                    <div class="opcion-texto">
+                        <span class="opcion-icon">❤️</span>
+                        Esos momentos únicos que vivimos
+                    </div>
+                    <div class="anecdota-caja">
+                        <div class="anecdota-icon">✨</div>
+                        <div class="anecdota-texto">
+                            <strong>La anécdota:</strong><br>
+                            Simplemente estar a tu lado es lo que amo
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resultado" id="resultado">
+                <div style="display: flex; align-items: center; gap: 15px; justify-content: center;">
+                    <span style="font-size: 2rem;">💖</span>
+                    <div>
+                        <strong>¡Correcto!</strong><br>
+                        Ese código secreto de risas es nuestro tesoro privado
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- CÁPSULA DEL TIEMPO -->
+    <section class="seccion" id="capsula">
+        <div class="container">
+            <h2 class="titulo-seccion">Cápsula del Tiempo</h2>
+            <div class="capsula">
+                <p>¿Dónde crees que estaremos en otros 4 meses?</p>
+                <textarea id="mensajeCapsula" placeholder="Escribe aquí tus sueños para nuestro futuro..."></textarea>
+                <button class="btn-descubrir" onclick="guardarCapsula()">
+                    Guardar para el Futuro <i class="fas fa-time-capsule"></i>
+                </button>
+                <p id="confirmacion" style="margin-top: 15px; display: none; color: var(--rosa);">
+                    💌 Mensaje guardado para dentro de 4 meses
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER Y MENSAJE FINAL -->
+    <footer>
+        <div class="container">
+            <div class="mensaje-final">
+                Y esto es solo el 1% de lo que siento<br>
+                El resto no cabe en un sitio web
+            </div>
+            
+            <p>Con todo mi amor, en nuestros primeros 4 meses juntos</p>
+            <p style="font-size: 1.3rem; margin: 20px 0; color: #ff2e63;">
+                Te amo [SU NOMBRE] desde [FECHA DE INICIO]
+            </p>
+            
+            <button class="btn-whatsapp" onclick="enviarMensaje()">
+                <i class="fab fa-whatsapp"></i> ¿Salimos a celebrar nuestros 4 meses?
+            </button>
+            
+            <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.7;">
+                Esta página fue hecha con 💖 para ti. Cada día contigo es un regalo.
+            </p>
+        </div>
+    </footer>
+
+    <!-- CONTROL DE MÚSICA FLOTANTE -->
+    <div class="control-musica">
+        <button id="btnMusica" class="btn-musica">
+            <span class="icono-musica">🎵</span>
+            <span id="textoMusica">Reproducir música</span>
+        </button>
+        <div class="volumen-control" id="volumenControl">
+            <span class="icono-musica">🔈</span>
+            <input type="range" id="controlVolumen" min="0" max="1" step="0.1" value="0.3">
+            <span class="icono-musica">🔊</span>
+        </div>
+    </div>
+
+    <!-- CANCIÓN DE FONDO (OCULTA) -->
+    <audio id="musicaFondo" loop>
+        <source src="images/nuestra-cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
+    
+    <!-- SCRIPT PARA LA MÚSICA -->
+    <script>
+        // ====================
+        // CONTROL DE MÚSICA
+        // ====================
+        
+        // Elementos del DOM
+        const musica = document.getElementById('musicaFondo');
+        const btnMusica = document.getElementById('btnMusica');
+        const textoMusica = document.getElementById('textoMusica');
+        const controlVolumen = document.getElementById('controlVolumen');
+        const volumenControl = document.getElementById('volumenControl');
+        
+        // Configuración inicial
+        musica.volume = 0.3; // Volumen al 30%
+        controlVolumen.value = 0.3;
+        
+        // Reproducir música al hacer clic en cualquier parte (solo primera vez)
+        document.body.addEventListener('click', function iniciarMusica() {
+            if (musica.paused) {
+                musica.play()
+                    .then(() => {
+                        textoMusica.innerHTML = '🔊 Música ON';
+                        volumenControl.style.display = 'flex';
+                        btnMusica.style.background = 'linear-gradient(135deg, #25D366, #128C7E)';
+                    })
+                    .catch(e => {
+                        console.log("Error al reproducir automáticamente:", e);
+                        textoMusica.innerHTML = '🎵 Click para permitir';
+                    });
+            }
+            // Remover el event listener después del primer click
+            document.body.removeEventListener('click', iniciarMusica);
+        }, { once: true });
+        
+        // Controlar música con el botón
+        btnMusica.addEventListener('click', function(event) {
+            event.stopPropagation(); // Evitar que se active el listener del body
+            
+            if (musica.paused) {
+                musica.play()
+                    .then(() => {
+                        textoMusica.innerHTML = '🔊 Música ON';
+                        volumenControl.style.display = 'flex';
+                        btnMusica.style.background = 'linear-gradient(135deg, #25D366, #128C7E)';
+                    })
+                    .catch(e => {
+                        console.log("Error al reproducir:", e);
+                        textoMusica.innerHTML = '❌ Click para permitir';
+                    });
+            } else {
+                musica.pause();
+                textoMusica.innerHTML = '🎵 Música OFF';
+                volumenControl.style.display = 'none';
+                btnMusica.style.background = 'linear-gradient(135deg, #ff2e63, #ff6b8b)';
+            }
+        });
+        
+        // Controlar volumen
+        controlVolumen.addEventListener('input', function() {
+            musica.volume = this.value;
+            
+            // Cambiar color del botón según volumen
+            if (this.value == 0) {
+                textoMusica.innerHTML = '🔇 Música ON';
+            } else if (this.value < 0.3) {
+                textoMusica.innerHTML = '🔈 Música ON';
+            } else {
+                textoMusica.innerHTML = '🔊 Música ON';
+            }
+        });
+        
+        // Indicar cuando la música termina (aunque loop evita esto)
+        musica.addEventListener('ended', function() {
+            textoMusica.innerHTML = '🎵 Reproducir música';
+            volumenControl.style.display = 'none';
+            btnMusica.style.background = 'linear-gradient(135deg, #ff2e63, #ff6b8b)';
+        });
+        
+        // Pausar música cuando la página no está visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && !musica.paused) {
+                musica.pause();
+                textoMusica.innerHTML = '⏸️ Música pausada';
+            }
+        });
+        
+        // Reproducir automáticamente al llegar a la galería
+        window.addEventListener('scroll', function() {
+            const galeria = document.getElementById('galeria');
+            const rect = galeria.getBoundingClientRect();
+            
+            // Si la galería está visible en pantalla
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                if (musica.paused) {
+                    musica.play()
+                        .then(() => {
+                            textoMusica.innerHTML = '🔊 Música ON';
+                            volumenControl.style.display = 'flex';
+                            btnMusica.style.background = 'linear-gradient(135deg, #25D366, #128C7E)';
+                        })
+                        .catch(e => console.log("Error:", e));
+                }
+            }
+        });
+        
+        // Efecto especial: cambiar música cuando se hace clic en corazones
+        document.getElementById('corazones').addEventListener('click', function() {
+            if (!musica.paused) {
+                // Efecto de volumen dinámico
+                const originalVolume = musica.volume;
+                musica.volume = 0.1;
+                
+                setTimeout(() => {
+                    musica.volume = originalVolume;
+                }, 200);
+            }
+        });
+        
+        console.log("🎵 Sistema de música cargado - Listo para el romance");
+    </script>
+</body>
+</html>
